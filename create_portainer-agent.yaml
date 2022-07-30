@@ -2,16 +2,6 @@
  - name: Update portainer agent
    hosts: "raspi,server" # Change according to your hosts file
    tasks:
-   - name: Stop agent
-     community.docker.docker_container:
-      name: portainer_agent
-      state: stopped
-
-   - name: Remove container
-     community.docker.docker_container:
-      name: portainer_agent
-      state: absent
-
    - name: Create container
      community.docker.docker_container:
       name: portainer_agent
