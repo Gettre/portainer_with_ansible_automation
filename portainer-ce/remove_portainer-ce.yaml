@@ -1,0 +1,13 @@
+---
+ - name: Update portainer agent
+   hosts: localhost
+   tasks:
+   - name: Stop agent
+     community.docker.docker_container:
+      name: portainer-ce
+      state: stopped
+
+   - name: Remove container
+     community.docker.docker_container:
+      name: portainer-ce
+      state: absent

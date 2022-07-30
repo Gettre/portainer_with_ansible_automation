@@ -1,0 +1,18 @@
+---
+ - name: Update portainer agent
+   hosts: localhost # Change according to your hosts file
+   connection: local
+   tasks:
+   - name: Create container
+     community.docker.docker_container:
+      name: portainer
+      image: "portainer/portainer-ce"
+      network_mode: bridge
+      restart_policy: always
+      ports:
+        - "8000:8000"
+        - "9000:9000"
+        - "9443:9443"
+      volumes:
+        - portainer_data:/data
+        - /var/run/docker.sock:/var/run/docker.sock
