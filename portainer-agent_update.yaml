@@ -1,0 +1,25 @@
+---
+ - name: Update portainer agent
+ - host: "raspi,server"
+ - tasks:
+   - name: Stop agent
+   - community.docker.docker_container:
+      name: portainer_agent
+      state: stopped
+
+   - name: Remove container
+   - community.docker.docker_container:
+      name: portainer_agent
+      state: absent
+
+   - name: Create container
+   - community.docker.docker_container:
+      name: portainer_agent
+      image: portainer/agent:latest
+      state: present
+      restart_policy: always
+      exposed_ports:
+        "9001:9001"
+      volumes:
+        - "/var/run/docker.sock:/var/run/docker.sock"
+        - "/var/lib/docker/volumes:/var/lib/docker/volumes"
